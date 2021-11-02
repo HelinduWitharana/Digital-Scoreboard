@@ -1,0 +1,2589 @@
+html {scroll-behavior: smooth;}
+body{
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	overflow-x: hidden;
+	background-color: #191919;
+}
+
+:root {
+	--font_family: arial;
+	--sc_font_size: 13px;
+	--button_width: 95px;
+	--long_button_width: 195px;
+	--over_time_line_font_size: 12px;
+	--main_1_input_button_color: #1ba5ff;
+	--main_2_input_button_color: #c527ff;
+	--main_3_input_button_color: #ff6500;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.main{
+	display: grid;
+	grid-template-rows: 45% 55%;
+	grid-template-columns: 100% 100% 100%;
+	
+	grid-template-areas:
+	"score_controls_left score_board_wrap score_controls_right"
+	"score_controls_left score_controls_middle score_controls_right";
+	
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.score_board_top_wrap{
+	position: fixed;
+	display: grid;
+	grid-template-rows: 45% 1fr 48% 1fr;
+	grid-template-columns: 1fr 97% 1fr;
+	
+	grid-template-areas:
+	". score_board_capture_guide ."
+	". . ."
+	". score_board_setting ."
+	". . .";
+	
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	z-index: -1;
+	backdrop-filter: blur(10px);
+	opacity: 0;
+	transition: 0.5s;
+}
+
+.close_settings_clicker{
+	opacity: 0;
+    height: 400px;
+    position: absolute;
+    width: 1536px;
+    top: 326px;
+    left: 0px;
+    z-index: 0;
+}
+
+.main_toggle_wrap{
+	position: absolute;
+	width: 300%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	background-image: linear-gradient(0deg,  #01153f, #002b89, #0343ca);
+	opacity: 1;
+	z-index: 1;
+	transition: 1s;
+}
+
+.score_board_toggle_wrap{
+	position: absolute;
+	width: 300%;
+	height: 45%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	background-image: linear-gradient(0deg, #00ff00 294px, #00000000 294px);
+	opacity: 0;
+	z-index: 0;
+	cursor: auto;
+	transition: 0.3s;
+}
+
+.score_board_capture_guide{
+	display: grid;
+	grid-template-rows: 10% 90%;
+	grid-template-columns: 100%;
+	
+	grid-template-areas:
+	"."
+	"score_board_capture_guide_lines";
+	
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	margin: 0px;
+	border: 0px;
+	background-color: #00000000;
+	opacity: 1;
+	z-index: 0;
+	align-self: center;
+	justify-self: center;
+	transition: 0.3s;
+}
+.score_board_capture_guide_lines{
+	grid-area: score_board_capture_guide_lines;
+	width: 95%;
+	height: 60%;
+    padding: 0px;
+	margin: 0px;
+	background-color: #00000000;
+	border: 0px solid #fff;
+	border-style: double;
+	opacity: 1;
+	z-index: 0;
+	align-self: center;
+	justify-self: center;
+	transition: 0.5s;
+}
+
+.score_board_wrap{
+	position: fixed;
+	grid-area: score_board_wrap;
+	display: grid;
+	grid-template-columns: 1fr 30% 30% 30% 1fr;
+	grid-template-rows: 10% 1fr 10% 30% 10% 1fr;
+	
+	grid-template-areas:
+	"titlediv titlediv titlediv titlediv titlediv"
+	". . . . ."
+	". . out_free_hit . ."
+	". score_board score_board score_board ."
+	". . . . ."
+	". . . . .";
+	
+	width: 100%;
+	height: 45%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	background-color: #000;
+	transition: 0.5s;
+}
+
+.titlediv{
+	grid-area: titlediv;
+	display: grid;
+	
+	grid-template-rows: 100%;
+	
+	grid-template-areas:
+	"title";
+	
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	background-color: #74b5ff;
+}
+
+.title{
+	grid-area: title;
+	color: #000;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 20px;
+	align-self: center;
+	justify-self: center;
+}
+
+.out_free_hit{
+	grid-area: out_free_hit;
+	background-color: #00000000;
+	color: #00000000;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 20px;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	border-radius: 10px 10px 0px 0px;
+	margin: 0px;
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 35px;
+	transition: 0.3s;
+}
+
+.score_board{
+	grid-area: score_board;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	
+	grid-template-areas:
+	"score_board_left score_board_middle score_board_right";
+	
+	background-color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	border-radius: 45px;
+	margin: 0px;
+	align-self: center;
+	justify-self: center;
+}
+
+.score_board_left{
+	grid-area: score_board_left;
+	display: grid;
+	grid-template-rows: 10% 1fr 1fr 10%;
+	grid-template-columns: 25% 5% 1fr 20%;
+	
+	grid-template-areas:
+	"logo . . ."
+	"logo pinter_top bater_top bater_top_score"
+	"logo pinter_bottom bater_bottom bater_bottom_score"
+	"logo . . .";
+	
+	background-color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	border-bottom-left-radius: 45px;
+	border-bottom-right-radius: 0px;
+	border-top-right-radius: 0px;
+	border-top-left-radius: 45px;
+	margin: 0px;
+	align-self: center;
+	justify-self: center;
+}
+
+.logo{
+	grid-area: logo;
+	width: 53%;
+	height: auto;
+	padding: 0px;
+	border: 0px;
+	margin: 0px;
+	align-self: center;
+	justify-self: center;
+}
+
+.pinter_top{
+	grid-area: pinter_top;
+    color: #000;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 25px;
+	text-align: center;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}
+.pinter_bottom{
+	grid-area: pinter_bottom;
+    color: #000;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 25px;
+	text-align: center;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}
+
+.bater_top{
+	grid-area: bater_top;
+    color: #000;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 20px;
+	text-align: center;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}
+.bater_bottom{
+	grid-area: bater_bottom;
+    color: #000;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 20px;
+	text-align: center;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}
+
+.bater_top_score{
+	grid-area: bater_top_score;
+    color: #000;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 20px;
+	text-align: center;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}
+.bater_bottom_score{
+	grid-area: bater_bottom_score;
+    color: #000;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 20px;
+	text-align: center;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}
+
+
+.score_board_middle{
+	grid-area: score_board_middle;
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 19% 10% 19% 1fr;
+	
+	grid-template-areas:
+	"ball_team vs bat_team count1"
+	"run_rate run_rate run_rate run_rate";
+	
+	background-image: linear-gradient(0deg,  #01153f, #0235a3, #0049e1, #3b79fc, #1b61f8);
+	width: 100%;
+	height: 85%;
+    padding: 0px;
+	border: 0px;
+	border-radius: 45px;
+	margin: 0px;
+	align-self: center;
+	justify-self: center;
+}
+
+.count1{
+	grid-area: count1;
+	width: 60%;
+	background-image: linear-gradient(90deg, #00000000, #01c5ff, #4bd0f8, #76cde7);
+    color: #000;
+    padding: 2px 20px;
+    margin: 0px;
+    border: none;
+    border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 45px;
+	border-top-right-radius: 45px;
+	border-top-left-radius: 0px;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 25px;
+	text-align: center;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}
+
+.bat_team{
+	grid-area: bat_team;
+    color: #fff;
+    padding: 2px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 25px;
+	text-align: center;
+	text-shadow: 0px 0px 3px #fff;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}
+
+.ball_team{
+	grid-area: ball_team;
+    color: #000;
+    padding: 2px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 25px;
+	text-align: center;
+	align-self: center;
+	justify-self: end;
+    transition: 0.3s;
+}
+
+.vs{
+	grid-area: vs;
+    color: #000;
+    padding: 2px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 25px;
+	text-align: center;
+	align-self: center;
+	justify-self: center;
+    transition: 0.3s;
+}
+
+.run_rate{
+	grid-area: run_rate;
+	width: 50%;
+    background-color: #00000000;
+    color: #00000000;
+    padding: 2px 20px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 15px;
+	text-align: center;
+	align-self: center;
+	justify-self: center;
+    transition: 0.3s;
+}
+
+
+.score_board_right{
+	grid-area: score_board_right;
+	display: grid;
+	grid-template-rows: 10% 35% 45% 10%;
+	grid-template-columns: 5% 1fr 1fr 1fr 13% 3%;
+	
+	grid-template-areas:
+	". . . . . ."
+	".bowler_name bowler_name bowler_stats over ."
+	"over_time_line over_time_line over_time_line over_time_line over_time_line over_time_line"
+	"over_time_line over_time_line over_time_line over_time_line over_time_line over_time_line";
+	
+	background-color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 45px;
+	border-top-right-radius: 45px;
+	border-top-left-radius: 0px;
+	margin: 0px;
+	align-self: center;
+	justify-self: center;
+}
+
+.bowler_name{
+	grid-area: bowler_name;
+    color: #000;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 20px;
+	text-align: center;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}
+
+.bowler_stats{
+	grid-area: bowler_stats;
+	width: 75%;
+    background-color: #00000000;
+    color: #000;
+    padding: 2px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 20px;
+	text-align: center;
+	align-self: center;
+	justify-self: end;
+    transition: 0.3s;
+}
+
+.over{
+	grid-area: over;
+	width: 75%;
+    background-color: #00000000;
+    color: #000;
+    padding: 2px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 20px;
+	text-align: center;
+	align-self: center;
+	justify-self: center;
+    transition: 0.3s;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.score_controls_middle{
+	grid-area: score_controls_middle;
+	display: grid;
+	grid-gap: 2px;
+	grid-template-columns: 0.2% 1fr 1fr 0.1fr 1fr 1fr 0.1fr 1fr 1fr 0.1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.2%;
+	grid-template-rows: 1% 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1%;
+	
+	grid-template-areas:
+	". . . . . . . . . . . . . . . . . . . ."
+	". overminus1 overplus1 . minus1 plus1 . runout_minus runout . selectbatter1 selectbatter1 selectbatter2 selectbatter2 getplayers selectbowler selectbowler . resetmainscore ."
+	". minus_wickets plus_wickets . . plus4 . legbyes_minus legbyes . selectbat1 selectbat1 selectbat2 selectbat2 switchteam selectbowler_name selectbowler_name . reset_wickets ."
+	". all_balls all_balls . dotball plus6 . byes_minus byes . resetbatter1score resetbatter1score resetbatter2score resetbatter2score setplayers resetbowlerstats resetbowlerstats . overreset ."
+	". official_balls official_balls . switchbatLabde switchbatLabde . wides_minus wides . . . . . . . . . . ."
+	". extra_balls extra_balls . switchbatLabde switchbatLabde . noball_minus noball . . . . . . . . . . ."
+	". extra_score extra_score . complete_ball_count complete_ball_count . . . . . . . . . . . . ClearNumbersInMemory ."
+	". . . . complete complete . free_hit out . . . . . . . . . . ."
+	". . . . complete_reset complete_reset . toggle_run_rate toggle_score_board . . . . . . . . . ClearAllInMemory ."
+	". . . . . . . . . . . . . . . . . . . .";
+	
+	place-items: center;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+
+.complete_ball_count{
+	grid-area: complete_ball_count;
+	color: #fff;
+	font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+}
+.complete{
+	grid-area: complete;
+    background-color: #fff;
+    color: #000;
+	width: var(--long_button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.complete_reset{
+	grid-area: complete_reset;
+    background-color: #fff;
+    color: #000;
+	width: var(--long_button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.overplus1{
+	grid-area: overplus1;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.overminus1{
+	grid-area: overminus1;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.overreset{
+	grid-area: overreset;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.official_balls{
+	grid-area: official_balls;
+	color: #fff;
+	font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+}
+
+.extra_balls{
+	grid-area: extra_balls;
+	color: #fff;
+	font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+}
+
+.extra_score{
+	grid-area: extra_score;
+	color: #fff;
+	font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+}
+
+.all_balls{
+	grid-area: all_balls;
+	color: #fff;
+	font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+}
+
+.plus1{
+	grid-area: plus1;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.plus4{
+	grid-area: plus4;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.plus6{
+	grid-area: plus6;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.minus1{
+	grid-area: minus1;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.resetmainscore{
+	grid-area: resetmainscore;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.plus_wickets{
+	grid-area: plus_wickets;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.minus_wickets{
+	grid-area: minus_wickets;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.reset_wickets{
+	grid-area: reset_wickets;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.runout{
+	grid-area: runout;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.legbyes{
+	grid-area: legbyes;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.byes{
+	grid-area: byes;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.wides{
+	grid-area: wides;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.noball{
+	grid-area: noball;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.dotball{
+	grid-area: dotball;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.runout_minus{
+	grid-area: runout_minus;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.legbyes_minus{
+	grid-area: legbyes_minus;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.byes_minus{
+	grid-area: byes_minus;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.wides_minus{
+	grid-area: wides_minus;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.noball_minus{
+	grid-area: noball_minus;
+    background-color: var(--main_1_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.switchbatLabde{
+	grid-area: switchbatLabde;
+    background-color: var(--main_3_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+	text-align: center;
+	line-height: 23px;
+    transition: 0.3s;
+}
+.switchbatcheckbox{
+	display: none;
+	
+}
+
+.out{
+	grid-area: out;
+    background-color: var(--main_2_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.free_hit{
+	grid-area: free_hit;
+    background-color: var(--main_2_input_button_color);
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.toggle_score_board{
+	grid-area: toggle_score_board;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.toggle_run_rate{
+	grid-area: toggle_run_rate;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.switchteam{
+	grid-area: switchteam;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+	text-align: center;
+	line-height: 23px;
+    transition: 0.3s;
+}
+.switchteamcheckbox{
+	display: none;
+}
+
+.selectbat1{
+	grid-area: selectbat1;
+	background-color: #fff;
+    color: #000;
+	width: var(--long_button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+	text-align: center;
+    transition: 0.3s;
+}
+
+.selectbat2{
+	grid-area: selectbat2;
+	background-color: #fff;
+    color: #000;
+	width: var(--long_button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+	text-align: center;
+    transition: 0.3s;
+}
+
+.selectbowler_name{
+	grid-area: selectbowler_name;
+	background-color: #fff;
+    color: #000;
+	width: var(--long_button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+	text-align: center;
+    transition: 0.3s;
+}
+
+.getplayers{
+	grid-area: getplayers;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+	text-align: center;
+    transition: 0.3s;
+}
+
+.setplayers{
+	grid-area: setplayers;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+	text-align: center;
+    transition: 0.3s;
+}
+
+.selectbatter1{
+	grid-area: selectbatter1;
+	color: #fff;
+	font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+}
+.selectbatter2{
+	grid-area: selectbatter2;
+	color: #fff;
+	font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+}
+
+.selectbowler{
+	grid-area: selectbowler;
+	color: #fff;
+	font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+}
+
+.resetbatter1score{
+	grid-area: resetbatter1score;
+    background-color: #fff;
+    color: #000;
+	width: var(--long_button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.resetbatter2score{
+	grid-area: resetbatter2score;
+    background-color: #fff;
+    color: #000;
+	width: var(--long_button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.resetbowlerstats{
+	grid-area: resetbowlerstats;
+    background-color: #fff;
+    color: #000;
+	width: var(--long_button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.ClearAllInMemory{
+	grid-area: ClearAllInMemory;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+.ClearNumbersInMemory{
+	grid-area: ClearNumbersInMemory;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+
+.complete:hover, .complete_reset:hover, .overplus1:hover, .overminus1:hover, .overreset:hover, .plus1:hover, .plus4:hover, .plus6:hover, .minus1:hover, .resetmainscore:hover, .plus_wickets:hover, .minus_wickets:hover, .reset_wickets:hover, .runout:hover, .legbyes:hover, .byes:hover, .wides:hover, .noball:hover, .dotball:hover, .runout_minus:hover, .legbyes_minus:hover, .byes_minus:hover, .wides_minus:hover, .noball_minus:hover, .switchbatLabde:hover, .out:hover, .free_hit:hover, .toggle_score_board:hover, .toggle_run_rate:hover, .switchteam:hover, .getplayers:hover, .resetbatter1score:hover, .resetbatter2score:hover, .resetbowlerstats:hover, .setplayers:hover, .bottom:hover, .ClearAllInMemory:hover, .ClearNumbersInMemory:hover, .selectbat1:hover, .selectbat2:hover, .selectbowler_name:hover{
+	box-shadow: inset 0px 0px 50px #0056ff;
+}
+
+
+.score_controls_left{
+	grid-area: score_controls_left;
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-rows: 45% 2% 53%;
+	
+	grid-template-areas:
+	". . . ."
+	". . . ."
+	"team1 team2 team_logos .";
+	
+	place-items: center;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.team1{
+	grid-area: team1;
+	display: grid;
+	grid-template-columns: 2% 98%;
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+	
+	grid-template-areas:
+	". Team1Name"
+	". Team1player1"
+	". Team1player2"
+	". Team1player3"
+	". Team1player4"
+	". Team1player5"
+	". Team1player6"
+	". Team1player7"
+	". Team1player8"
+	". Team1player9"
+	". Team1player10"
+	". Team1player11";
+	
+	place-items: center;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.Team1Name{
+	grid-area: Team1Name;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.Team1player1{
+	grid-area: Team1player1;
+}
+
+.Team1player2{
+	grid-area: Team1player2;
+}
+
+.Team1player3{
+	grid-area: Team1player3;
+}
+
+.Team1player4{
+	grid-area: Team1player4;
+}
+
+.Team1player5{
+	grid-area: Team1player5;
+}
+
+.Team1player6{
+	grid-area: Team1player6;
+}
+
+.Team1player7{
+	grid-area: Team1player7;
+}
+
+.Team1player8{
+	grid-area: Team1player8;
+}
+
+.Team1player9{
+	grid-area: Team1player9;
+}
+
+.Team1player10{
+	grid-area: Team1player10;
+}
+
+.Team1player11{
+	grid-area: Team1player11;
+}
+
+.Team1player1, .Team1player2, .Team1player3, .Team1player4, .Team1player5, .Team1player6, .Team1player7, .Team1player8, .Team1player9, .Team1player10, .Team1player11{
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.team2{
+	grid-area: team2;
+	display: grid;
+	grid-template-columns: 2% 98%;
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+	
+	grid-template-areas:
+	". Team2Name"
+	". Team2player1"
+	". Team2player2"
+	". Team2player3"
+	". Team2player4"
+	". Team2player5"
+	". Team2player6"
+	". Team2player7"
+	". Team2player8"
+	". Team2player9"
+	". Team2player10"
+	". Team2player11";
+	
+	place-items: center;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.Team2Name{
+	grid-area: Team2Name;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.Team2player1{
+	grid-area: Team2player1;
+}
+
+.Team2player2{
+	grid-area: Team2player2;
+}
+
+.Team2player3{
+	grid-area: Team2player3;
+}
+
+.Team2player4{
+	grid-area: Team2player4;
+}
+
+.Team2player5{
+	grid-area: Team2player5;
+}
+
+.Team2player6{
+	grid-area: Team2player6;
+}
+
+.Team2player7{
+	grid-area: Team2player7;
+}
+
+.Team2player8{
+	grid-area: Team2player8;
+}
+
+.Team2player9{
+	grid-area: Team2player9;
+}
+
+.Team2player10{
+	grid-area: Team2player10;
+}
+
+.Team2player11{
+	grid-area: Team2player11;
+}
+
+.Team2player1, .Team2player2, .Team2player3, .Team2player4, .Team2player5, .Team2player6, .Team2player7, .Team2player8, .Team2player9, .Team2player10, .Team2player11{
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+
+.team_logos{
+	grid-area: team_logos;
+	display: grid;
+	grid-gap: 5px;
+	grid-template-columns: 1fr 90% 1fr;
+	grid-template-rows: 1fr 1fr 1fr 80%;
+	
+	grid-template-areas:
+	". Team1_logo ."
+	". Team2_logo ."
+	". save_players ."
+	". . .";
+	
+	place-items: center;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.Team1_logo{
+	grid-area: Team1_logo;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.Team2_logo{
+	grid-area: Team2_logo;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.save_players{
+	grid-area: save_players;
+    background-color: #fff;
+    color: #000;
+	width: var(--button_width);
+	height: 45px;
+    padding: 0px;
+    margin: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font_family);
+    font-weight: 800;
+	text-decoration: none;
+	font-size: var(--sc_font_size);
+    transition: 0.3s;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 0px 14px;
+  margin: -4px 0;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.top:hover, .save_players:hover{
+	box-shadow: inset 0px 0px 50px #0056ff;
+}
+
+
+
+.score_controls_right{
+	grid-area: score_controls_right;
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows: 100%;
+	
+	grid-template-areas:
+	".";
+	
+	place-items: center;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+}
+
+.score_board_setting{
+	position: absolute;
+	grid-area: score_board_setting;
+	display: grid;
+	grid-template-columns: 1% 1fr 1%;
+	grid-template-rows: 3% 13% 1fr;
+	
+	grid-template-areas:
+	". . ."
+	". setting_navbar ."
+	". setting_bottom .";
+	
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px;
+	background-color: #313131;
+	opacity: 0;
+	transition: 0.5s;
+}
+
+.setting_navbar{
+	position: absolute;
+	grid-area: setting_navbar;
+	display: grid;
+	grid-gap: 10px;
+	grid-template-columns: 0% 1fr 1fr 1fr 1fr 1fr 0%;
+	grid-template-rows: 100%;
+	
+	grid-template-areas:
+	". navbar_title_1 navbar_title_2 navbar_title_3 navbar_title_4 navbar_title_5 .";
+	
+	place-items: center;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 0px;
+	background-color: #313131;
+	opacity: 1;
+	transition: 0.5s;
+}
+
+.navbar_title_1{
+	grid-area: navbar_title_1;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px 10px 0px 0px;
+	cursor: pointer;
+	font-family: var(--font_family);
+	background-color: #00000000;
+	color: #fff;
+	font-weight: 800;
+	font-size: 20px;
+	line-height: 45px;
+	text-align: center;
+	transition: 0.3s;
+}
+.navbar_title_2{
+	grid-area: navbar_title_2;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px 10px 0px 0px;
+	cursor: pointer;
+	font-family: var(--font_family);
+	background-color: #00000000;
+	color: #fff;
+	font-weight: 800;
+	font-size: 20px;
+	line-height: 45px;
+	text-align: center;
+	transition: 0.3s;
+}
+.navbar_title_3{
+	grid-area: navbar_title_3;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px 10px 0px 0px;
+	cursor: pointer;
+	font-family: var(--font_family);
+	background-color: #00000000;
+	color: #fff;
+	font-weight: 800;
+	font-size: 20px;
+	line-height: 45px;
+	text-align: center;
+	transition: 0.3s;
+}
+.navbar_title_4{
+	grid-area: navbar_title_4;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px 10px 0px 0px;
+	cursor: pointer;
+	font-family: var(--font_family);
+	background-color: #00000000;
+	color: #fff;
+	font-weight: 800;
+	font-size: 20px;
+	line-height: 45px;
+	text-align: center;
+	transition: 0.3s;
+}
+.navbar_title_5{
+	grid-area: navbar_title_5;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px 10px 0px 0px;
+	cursor: pointer;
+	font-family: var(--font_family);
+	background-color: #00000000;
+	color: #fff;
+	font-weight: 800;
+	font-size: 20px;
+	line-height: 45px;
+	text-align: center;
+	transition: 0.3s;
+}
+
+.navbar_title_1:hover, .navbar_title_2:hover, .navbar_title_3:hover, .navbar_title_4:hover, .navbar_title_5:hover{
+	box-shadow: inset 0px 0px 100px #ffffff;
+	color: #000;
+}
+
+.setting_text{
+	color: #fff;
+	font-weight: 800;
+	font-size: 17px;
+	font-family: var(--font_family);
+	text-align: start;
+}
+
+.setting_bottom{
+	grid-area: setting_bottom;
+	width: 100%;
+	height: 95%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 0px;
+	background-color: #00000000;
+	opacity: 1;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	transition: 0.5s;
+}
+
+.setting_score_board_interface{
+	position: absolute;
+	display: grid;
+	grid-gap: 8px;
+	grid-template-columns: 0% 1fr 1fr 1fr 1fr 0%;
+	grid-template-rows: 0% 1fr 1fr 1fr 1fr 1fr 0%;
+	
+	grid-template-areas:
+	". . . . . ."
+	". setting_chroma_key_background . . . ."
+	". setting_capture_guide . . . ."
+	". setting_hide_cursor_on_score_board . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . .";
+	
+	place-items: center;
+	width: 98%;
+	height: 80%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px;
+	background-color: #101010;
+	opacity: 1;
+	z-index: 0;
+	transition: 0.5s;
+}
+
+
+.setting_chroma_key_background{
+	grid-area: setting_chroma_key_background;
+	display: grid;
+	grid-template-columns: 80% 20%;
+	grid-template-rows: 100%;
+	
+	grid-template-areas:
+	". switch_chroma_key_background";
+	
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: #00000000;
+    opacity: 1;
+    transition: 0.5s;
+}
+.switch_chroma_key_background{
+	grid-area: switch_chroma_key_background;
+	display: flex;
+    width: 98%;
+    height: 65%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+	cursor: pointer;
+    background-color: #000;
+	box-shadow: inset 0px 0px 0px 5px #4b4b4b;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+    transition: 0.4s;
+}
+.switch_toggle_chroma_key_background{
+	position: relative;
+    width: 40%;
+    height: 80%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+    background-color: #fff;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+	left: 4px;
+    transition: 0.25s;
+}
+
+.setting_capture_guide{
+	grid-area: setting_capture_guide;
+	display: grid;
+	grid-template-columns: 80% 20%;
+	grid-template-rows: 100%;
+	
+	grid-template-areas:
+	". switch_capture_guide";
+	
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: #00000000;
+    opacity: 1;
+    transition: 0.5s;
+}
+.switch_capture_guide{
+	grid-area: switch_capture_guide;
+	display: flex;
+    width: 98%;
+    height: 65%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+	cursor: pointer;
+    background-color: #000;
+	box-shadow: inset 0px 0px 0px 5px #4b4b4b;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+    transition: 0.4s;
+}
+.switch_toggle_capture_guide{
+	position: relative;
+    width: 40%;
+    height: 80%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+    background-color: #fff;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+	left: 4px;
+    transition: 0.25s;
+}
+
+.setting_hide_cursor_on_score_board{
+	grid-area: setting_hide_cursor_on_score_board;
+	display: grid;
+	grid-template-columns: 80% 20%;
+	grid-template-rows: 100%;
+	
+	grid-template-areas:
+	". switch_hide_cursor_on_score_board";
+	
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: #00000000;
+    opacity: 1;
+    transition: 0.5s;
+}
+.switch_hide_cursor_on_score_board{
+	grid-area: switch_hide_cursor_on_score_board;
+	display: flex;
+    width: 98%;
+    height: 65%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+	cursor: pointer;
+    background-color: #000;
+	box-shadow: inset 0px 0px 0px 5px #4b4b4b;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+    transition: 0.4s;
+}
+.switch_toggle_hide_cursor_on_score_board{
+	position: relative;
+    width: 40%;
+    height: 80%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+    background-color: #fff;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+	left: 4px;
+    transition: 0.25s;
+}
+
+
+
+.setting_score_controls_interface{
+	position: absolute;
+	display: grid;
+	grid-gap: 8px;
+	grid-template-columns: 0% 1fr 1fr 1fr 1fr 0%;
+	grid-template-rows: 0% 1fr 1fr 1fr 1fr 1fr 0%;
+	
+	grid-template-areas:
+	". . . . . ."
+	". setting_highlighted_buttons . . . ."
+	". setting_auto_chenge_over_count . . . ."
+	". setting_auto_toggle_out_display . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . .";
+	
+	place-items: center;
+	width: 98%;
+	height: 80%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px;
+	background-color: #101010;
+	opacity: 1;
+	z-index: 0;
+	transition: 0.5s;
+}
+
+
+.setting_highlighted_buttons{
+	grid-area: setting_highlighted_buttons;
+	display: grid;
+	grid-template-columns: 80% 20%;
+	grid-template-rows: 100%;
+	
+	grid-template-areas:
+	". switch_highlighted_buttons";
+	
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: #00000000;
+    opacity: 1;
+    transition: 0.5s;
+}
+.switch_highlighted_buttons{
+	grid-area: switch_highlighted_buttons;
+	display: flex;
+    width: 98%;
+    height: 65%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+	cursor: pointer;
+    background-color: #000;
+	box-shadow: inset 0px 0px 0px 5px #00ff00;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+    transition: 0.4s;
+}
+.switch_toggle_highlighted_buttons{
+	position: relative;
+    width: 40%;
+    height: 80%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+    background-color: #fff;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+	left: 38px;
+    transition: 0.25s;
+}
+
+.setting_auto_chenge_over_count{
+	grid-area: setting_auto_chenge_over_count;
+	display: grid;
+	grid-template-columns: 80% 20%;
+	grid-template-rows: 100%;
+	
+	grid-template-areas:
+	". switch_auto_chenge_over_count";
+	
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: #00000000;
+    opacity: 1;
+    transition: 0.5s;
+}
+.switch_auto_chenge_over_count{
+	grid-area: switch_auto_chenge_over_count;
+	display: flex;
+    width: 98%;
+    height: 65%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+	cursor: pointer;
+    background-color: #000;
+	box-shadow: inset 0px 0px 0px 5px #4b4b4b;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+    transition: 0.4s;
+}
+.switch_toggle_auto_chenge_over_count{
+	position: relative;
+    width: 40%;
+    height: 80%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+    background-color: #fff;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+	left: 4px;
+    transition: 0.25s;
+}
+
+.setting_auto_toggle_out_display{
+	grid-area: setting_auto_toggle_out_display;
+	display: grid;
+	grid-template-columns: 80% 20%;
+	grid-template-rows: 100%;
+	
+	grid-template-areas:
+	". switch_auto_toggle_out_display";
+	
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: #00000000;
+    opacity: 1;
+    transition: 0.5s;
+}
+.switch_auto_toggle_out_display{
+	grid-area: switch_auto_toggle_out_display;
+	display: flex;
+    width: 98%;
+    height: 65%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+	cursor: pointer;
+    background-color: #000;
+	box-shadow: inset 0px 0px 0px 5px #4b4b4b;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+    transition: 0.4s;
+}
+.switch_toggle_auto_toggle_out_display{
+	position: relative;
+    width: 40%;
+    height: 80%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 20px;
+    background-color: #fff;
+    opacity: 1;
+    align-self: center;
+    justify-self: center;
+	left: 4px;
+    transition: 0.25s;
+}
+
+.setting_title_3{
+	position: absolute;
+	display: grid;
+	grid-gap: 8px;
+	grid-template-columns: 0% 1fr 1fr 1fr 1fr 0%;
+	grid-template-rows: 0% 1fr 1fr 1fr 1fr 1fr 0%;
+	
+	grid-template-areas:
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . .";
+	
+	place-items: center;
+	width: 98%;
+	height: 80%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px;
+	background-color: #101010;
+	opacity: 1;
+	z-index: 0;
+	transition: 0.5s;
+}
+
+
+.setting_title_4{
+	position: absolute;
+	display: grid;
+	grid-gap: 8px;
+	grid-template-columns: 0% 1fr 1fr 1fr 1fr 0%;
+	grid-template-rows: 0% 1fr 1fr 1fr 1fr 1fr 0%;
+	
+	grid-template-areas:
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . .";
+	
+	place-items: center;
+	width: 98%;
+	height: 80%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px;
+	background-color: #101010;
+	opacity: 1;
+	z-index: 0;
+	transition: 0.5s;
+}
+
+
+.setting_title_5{
+	position: absolute;
+	display: grid;
+	grid-gap: 8px;
+	grid-template-columns: 0% 1fr 1fr 1fr 1fr 0%;
+	grid-template-rows: 0% 1fr 1fr 1fr 1fr 1fr 0%;
+	
+	grid-template-areas:
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . ."
+	". . . . . .";
+	
+	place-items: center;
+	width: 98%;
+	height: 80%;
+    padding: 0px;
+	border: 0px;
+	margin: 0px;
+	border-radius: 10px;
+	background-color: #101010;
+	opacity: 1;
+	z-index: 0;
+	transition: 0.5s;
+}
+
+
+.setting_transition{
+	position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+	border-radius: 10px;
+    background-color: #00000000;
+    background-image: linear-gradient(90deg, #00000000 0%, #fff 20%, #fff 80%, #00000000 100%);
+    background-size: 100%;
+    opacity: 1;
+    left: -70%;
+    z-index: 0;
+    transition: 0.5s;
+}
+
+
+
+.over_time_line{
+	grid-area: over_time_line;
+	display: grid;
+	grid-gap: 5px;
+	grid-template-rows: 1fr 50% 1fr;
+	grid-template-columns: 2% 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 5%;
+	
+	grid-template-areas:
+	". . . . . . . . . . . . . . ."
+	". over_time_line_1 over_time_line_2 over_time_line_3 over_time_line_4 over_time_line_5 over_time_line_6 over_time_line_7 over_time_line_8 over_time_line_9 over_time_line_10 over_time_line_11 over_time_line_12 over_time_line_13 time_line_count"
+	". . . . . . . . . . . . . . .";
+	
+	background-color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 45px;
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	margin: 0px;
+	align-self: center;
+	justify-self: center;
+}
+
+.over_time_line_1{
+	grid-area: over_time_line_1;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_2{
+	grid-area: over_time_line_2;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_3{
+	grid-area: over_time_line_3;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_4{
+	grid-area: over_time_line_4;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_5{
+	grid-area: over_time_line_5;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_6{
+	grid-area: over_time_line_6;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_7{
+	grid-area: over_time_line_7;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_8{
+	grid-area: over_time_line_8;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_9{
+	grid-area: over_time_line_9;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_10{
+	grid-area: over_time_line_10;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_11{
+	grid-area: over_time_line_11;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_12{
+	grid-area: over_time_line_12;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+.over_time_line_13{
+	grid-area: over_time_line_13;
+	background-color: #00000000;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+    padding: 0px;
+	border: 0px;
+    border-radius: 50%;
+	margin: 0px;
+	font-weight: 800;
+	font-size: var(--over_time_line_font_size);
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	line-height: 28px;
+}
+
+
+.time_line_count{
+    grid-area: time_line_count;
+    color: #000;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+	font-family: var(--font_family);
+    font-weight: bold;
+	text-decoration: none;
+	font-size: 25px;
+	text-align: center;
+	align-self: center;
+	justify-self: start;
+    transition: 0.3s;
+}

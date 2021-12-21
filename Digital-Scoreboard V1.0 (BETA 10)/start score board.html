@@ -1,0 +1,137 @@
+<html>
+
+<head>
+	<title> start score board </title>
+
+	<style type="text/css">
+		body {
+			width: 100%;
+			height: 100%;
+			padding: 0px;
+			border: 0px;
+			margin: 0px;
+			overflow-x: hidden;
+			background-image: linear-gradient(315deg, #ff00be, #004fff);
+		}
+
+		.main {
+			display: grid;
+			position: absolute;
+			grid-template-rows: 1fr 30% 1fr;
+			grid-template-columns: 1fr 20% 1fr;
+
+			grid-template-areas:
+				". . ."
+				". start_button ."
+				". . .";
+
+			place-items: center;
+			width: 100%;
+			height: 100%;
+			padding: 0px;
+			border: 0px;
+			margin: 0px;
+		}
+
+		.main_wrap {
+			position: absolute;
+			width: 300%;
+			height: 100%;
+			padding: 0px;
+			border: 0px;
+			margin: 0px;
+			background-color: #00319e;
+			opacity: 0;
+			z-index: 0;
+			transition: 0.5s;
+		}
+
+		.start_button {
+			grid-area: start_button;
+			background-color: #00000000;
+			color: #ffffff;
+			width: 150%;
+			min-width: 300px;
+			height: 70px;
+			padding: 0px;
+			margin: 0px;
+			border: 3px solid #ffffff;
+			border-radius: 40px;
+			cursor: pointer;
+			font-family: arial;
+			font-weight: 800;
+			text-decoration: none;
+			line-height: 45px;
+			font-size: 28px;
+			transition: 0.5s;
+		}
+
+		.start_button:hover {
+			border: 10px solid #ffffff;
+			background-color: #ffffff;
+			color: #752be1;
+		}
+
+		.load {
+			display: grid;
+			background-color: #00319e;
+			position: absolute;
+			grid-template-rows: 1fr 2% 1fr;
+			grid-template-columns: 1fr 60% 1fr;
+
+			grid-template-areas:
+				". . ."
+				". load_bar ."
+				". . .";
+
+			width: 100%;
+			height: 100%;
+			padding: 0px;
+			border: 0px;
+			margin: 0px;
+			opacity: 0.0;
+			transition: 1s;
+		}
+
+		.load_bar {
+			grid-area: load_bar;
+			background-color: #ffffff;
+			border-radius: 45px;
+			width: 0%;
+			height: 100%;
+			transition: 2s;
+			transition-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main_wrap" id="main_wrap">
+	</div>
+
+	<div class="load" id="load">
+		<div class="load_bar" id="load_bar">
+		</div>
+	</div>
+
+	<div class="main" id="main">
+		<button class="start_button" id="start_button" onclick="Function_start_button()"> start score board </button>
+	</div>
+
+</body>
+
+<script>
+
+	function Function_start_button() {
+		document.getElementById("start_button").style.opacity = "0";
+		document.getElementById("start_button").style.cursor = "auto";
+		document.getElementById("load").style.opacity = "1";
+
+		document.getElementById("load_bar").style.width = "100%";
+		setTimeout(function () { window.location.href = "MAIN/score board.html"; }, 2000);
+		document.getElementById("main_wrap").style.opacity = "1";
+	}
+
+</script>
+
+</html>
